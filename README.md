@@ -60,8 +60,8 @@ py -3.11 -m nbconvert --execute --ExecutePreprocessor.timeout=600 --inplace note
 
 ## Notebooks principais
 
-- `main.ipynb`: workflow principal de carregamento de dados, pré-processamento, treinamento de modelo e avaliação.
 - `data_cleasing.ipynb`: análise exploratória e transformação dos dados brutos.
+- `main.ipynb`: workflow principal de carregamento de dados, pré-processamento, treinamento de modelo e avaliação.
 - `test_model.ipynb`: testes de validação e verificação da inferência do modelo.
 
 ## Dependências
