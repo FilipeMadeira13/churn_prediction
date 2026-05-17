@@ -1,31 +1,43 @@
 # Churn Prediction
 
-Este projeto implementa um fluxo de análise e modelagem para previsão de churn de clientes. O objetivo é preparar os dados, treinar modelos de classificação e validar o desempenho usando notebooks claros e reproduzíveis.
+Projeto de análise e modelagem para previsão de churn de clientes usando aprendizado de máquina em Python.
+
+## Visão geral
+
+Este repositório apresenta um fluxo completo para:
+- carregar e limpar os dados de churn;
+- codificar variáveis categóricas;
+- treinar e avaliar modelos de classificação;
+- aplicar validação cruzada e técnicas de balanceamento de classes;
+- exportar modelos e pipelines para inferência.
 
 ## Estrutura do projeto
 
 - `data/`
-  - `churn.csv` - conjunto de dados original de churn
-  - `clear_churn.csv` - versão limpa e pré-processada dos dados
+  - `churn.csv` - dados originais de churn
+  - `clear_churn.csv` - dados limpos e pré-processados
 - `models/`
-  - `modelo_arvore.pkl` - modelo de árvore de decisão salvo
-  - `modelo_onehot.pkl` - modelo com codificação one-hot salvo
+  - `onehot_model.pkl` - codificador OneHotEncoder salvo
+  - `tree_model.pkl` - modelo de árvore de decisão salvo
 - `notebooks/`
-  - `main.ipynb` - notebook principal de análise, modelagem e avaliação
-  - `data_cleasing.ipynb` - notebook de limpeza e exploração de dados
-  - `test_model.ipynb` - notebook de testes e validação de modelo
-- `requirements.txt` - lista de dependências Python do projeto
-- `setup_env.bat` - script de instalação de dependências no Windows
-- `run_notebooks.bat` - script para executar todos os notebooks automaticamente
+  - `data_cleaning.ipynb` - limpeza e preparação de dados
+  - `main.ipynb` - pipeline principal de modelagem e avaliação
+  - `test_model.ipynb` - teste de inferência dos modelos salvos
+- `requirements.txt` - dependências do projeto
+- `setup_env.bat` - cria/usa ambiente virtual e instala dependências
+- `run_notebooks.bat` - executa notebooks automaticamente
 - `.gitignore` - arquivos e pastas ignorados pelo Git
 
-## Requisitos
+## Tecnologias
 
-- Windows
-- Python 3.11
-- `py` launcher instalado
+O projeto utiliza:
+- `pandas` para manipulação de dados
+- `scikit-learn` para modelagem e avaliação
+- `imbalanced-learn` para balanceamento de classes via SMOTE e NearMiss
+- `matplotlib` para visualização de métricas
+- `nbconvert` e `ipykernel` para execução de notebooks
 
-## Instalação
+## Como rodar
 
 1. Abra o terminal no diretório do projeto:
    ```powershell
@@ -35,54 +47,31 @@ Este projeto implementa um fluxo de análise e modelagem para previsão de churn
    ```powershell
    setup_env.bat
    ```
+3. Execute todos os notebooks:
+   ```powershell
+   run_notebooks.bat
+   ```
 
-Isso instalará as dependências listadas em `requirements.txt` e também `nbconvert` e `ipykernel` necessários para executar os notebooks.
-
-## Execução
-
-### Executar os notebooks
-
-Após instalar as dependências, rode:
+Se preferir executar um notebook isolado:
 
 ```powershell
-run_notebooks.bat
+venv\Scripts\python.exe -m nbconvert --execute --ExecutePreprocessor.timeout=600 --inplace notebooks\main.ipynb
 ```
 
-Isso executará os notebooks em ordem e atualizará os arquivos em `notebooks/` com as saídas geradas.
+## Resultados e métricas
 
-### Executar individualmente
+O notebook `main.ipynb` treina diferentes algoritmos comparando:
+- Árvore de decisão
+- KNN
+- Random Forest
 
-Se preferir executar um notebook isolado, use:
+A avaliação foca em métricas como recall, matriz de confusão, curva ROC e precision-recall, além de validação cruzada estratificada.
 
-```powershell
-py -3.11 -m nbconvert --execute --ExecutePreprocessor.timeout=600 --inplace notebooks\main.ipynb
-```
+## Notas de melhoria
 
-## Notebooks principais
-
-- `data_cleasing.ipynb`: análise exploratória e transformação dos dados brutos.
-- `main.ipynb`: workflow principal de carregamento de dados, pré-processamento, treinamento de modelo e avaliação.
-- `test_model.ipynb`: testes de validação e verificação da inferência do modelo.
-
-## Dependências
-
-As principais bibliotecas utilizadas são:
-
-- `pandas`
-- `scikit-learn`
-- `scipy`
-- `matplotlib`
-- `plotly`
-- `nbformat`
-- `nbconvert`
-- `ipykernel`
-
-## Observações
-
-- O projeto foi validado com Python 3.11.
-- O arquivo `requirements.txt` foi ajustado para compatibilidade entre `numpy`, `pandas`, `scikit-learn` e `scipy`.
-- O `.gitignore` está configurado para ignorar ambientes virtuais, caches de Python e arquivos temporários.
+- Modelos e pré-processadores são exportados para `models/` para facilitar produção ou testes de inferência.
+- O notebook principal demonstra como balancear classes com oversampling e undersampling.
 
 ## Contato
 
-Para dúvidas ou melhorias, abra uma issue ou contribua com o código do projeto.
+Abra uma issue para sugestões ou contribuições.

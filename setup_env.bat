@@ -1,7 +1,17 @@
 @echo off
-REM Install project dependencies using Python 3.11 via the py launcher.
-REM If you do not have Python 3.11, install it or adjust the command to a compatible interpreter.
-py -3.11 -m pip install --user -r requirements.txt nbconvert ipykernel
+REM Install or reuse a local venv and install project dependencies.
+cd /d %~dp0
+if not exist venv ( 
+    py -3.11 -m venv venv
+    if errorlevel 1 (
+        echo Failed to create virtual environment.
+        exit /b 1
+    )
+)
+call venv\Scripts\activate.bat
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+python -m pip install nbconvert ipykernel
 if errorlevel 1 (
     echo Failed to install dependencies.
     exit /b 1
